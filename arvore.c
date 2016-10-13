@@ -145,9 +145,30 @@ link rotR(ARVORE a, link h) {
   return x;
 }
 
+void remover (ARVORE a, int key){
+  if(a->raiz != a->z){
+    removerNo(a, busca(a, key));
+  } else {
+    printf("Arvore vazia.\n");
+  }
+}
+
+void removerNo (ARVORE a, link node){
+
+  if(node->left == a->z && node->right == a->z) {
+    if (h != a->z) {
+      removerNo(a, h->left);
+      if( h->left == node)
+        h->left = a->z;
+      else if(h->right == node)
+        h->right = a->z;
+      removerNo(a, h->right);
+    }
+  }
+
+}
+
 #if 0
-void remover (ARVORE a, int key);
-void removerNo (ARVORE a, link node);
 void destroiArvore(ARVORE a);
 #endif 
 
