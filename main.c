@@ -48,8 +48,14 @@ int main () {
   x = busca(a, 45);
   if (x == NULL) 
     printf ("Nao achou\n");
-  else
+  else {
     printf ("Achou %d \n", x->key);
+    printf ("Remover %d \n", x->key);
+    remover(a, x->key);
+    printf ("\n");
+    printf ("em: ");
+    imprimeEmOrdem(a);
+  }
   
 
   x = busca(a, 1);

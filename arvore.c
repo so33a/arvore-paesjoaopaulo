@@ -21,7 +21,8 @@ void imprimePreOrdemR(ARVORE a, link h) {
 }
 
 int contaNosR (ARVORE a, link h) {
-  if(h == a->z) return 0;
+  if(h == a->z)
+    return 0;
   return 1 + contaNosR(a, h->left) + contaNosR(a, h->right);
 }
 
@@ -51,15 +52,15 @@ void imprimePosOrdem (ARVORE a) {
 
 
 void imprimeEmOrdemR (ARVORE a, link h) {
-   if (h != a->z) {
-     imprimeEmOrdemR(a, h->left);
-     printf("%d ", h->key);
-     imprimeEmOrdemR(a, h->right);
-   }
+  if (h != a->z) {
+    imprimeEmOrdemR(a, h->left);
+    printf("%d ", h->key);
+    imprimeEmOrdemR(a, h->right);
+  }
 }
 
 void imprimeEmOrdem (ARVORE a) {
-   imprimeEmOrdemR(a, a->raiz); 
+  imprimeEmOrdemR(a, a->raiz); 
 }
 
 link buscaR (ARVORE a, link h, int key) {
@@ -138,6 +139,7 @@ link rotL(ARVORE a, link h) {
   x->left = h;
   return x; 
 }
+
 link rotR(ARVORE a, link h) {
   link x = h->left;
   h->left = x->right;
@@ -147,29 +149,69 @@ link rotR(ARVORE a, link h) {
 
 void remover (ARVORE a, int key){
   if(a->raiz != a->z){
-    removerNo(a, busca(a, key));
-  } else {
-    printf("Arvore vazia.\n");
+    removerNo(a, a->raiz, key);
   }
 }
 
-void removerNo (ARVORE a, link node){
-
-  if(node->left == a->z && node->right == a->z) {
-    if (h != a->z) {
-      removerNo(a, h->left);
-      if( h->left == node)
-        h->left = a->z;
-      else if(h->right == node)
-        h->right = a->z;
-      removerNo(a, h->right);
+/* Remove o nó recursivamente */
+link removerNo(ARVORE a, link h, int key) {
+  link aux;
+  if(h == a->z) {
+    /* O elemento que está sendo procurando não foi encontrado */
+    return NULL;
+  } else if(key < h->key) {
+    /* O valor está a esquerda de h */
+    h->left = removerNo(a, h->left, key);
+  } else if(key > h->key) {
+    /* O valor está a direita de h */
+    h->right = removerNo(a, h->right, key);
+  } else {
+    /* O valor está em um nó não folha */
+    if(h->right != a->z && h->left != a->z) {
+      /* Guéto o menor valor da subarvore à direita e coloco na raiz */
+      aux = buscaMenor(a, h->right);
+      h->key = aux->key; 
+      /* Remove o nó que foi passado para h */
+      h->right = removerNo(a, h->right,aux->key);
+    } else {
+      /* O nó a ser removido possui uma subarvore filha */
+      aux = h;
+      if(h->left == a->z){
+      /* Caso a da esquerda esteja vazia, pego a da direita */
+        h = h->right;
+      } else if(h->right == a->z) {
+        /* Caso a da direita esteja vazia, pego a da esquerda */
+        h = h->left;
+      }
+      /* Libera o espaço de memória que armazenava o conteúde de h */
+      free(aux);
     }
   }
-
+  return h;
 }
 
-#if 0
-void destroiArvore(ARVORE a);
-#endif 
+link buscaMenor (ARVORE a, link h) {
+  link menor = NULL;
+  if (h != a->z)
+    buscaMenorR(a, h->left, menor);
+  else
+    return a->raiz;
+  return h; 
+}
+
+void destroiArvore(ARVORE a){
+  destroiArvoreR(a, a->raiz);
+}
+
+void destroiArvoreR(ARVORE a, link h){
+  if(h != a->z){
+    if(h->left != a->z)
+      destroiArvoreR(a, h->left);
+    if(h->right != a->z)
+      destroiArvoreR(a, h->right);
+    removerNo(a, h, h->key);
+    free(h);
+  }
+}
 
 

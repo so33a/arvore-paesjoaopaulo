@@ -20,12 +20,14 @@ link rotL(ARVORE a, link h);
 void inserir (ARVORE a, int key);
 void inserirNaRaiz (ARVORE a, int key);
 
-void remover (ARVORE a, int key);
-void removerNo (ARVORE a, link node);
-void imprimeEmOrdem (ARVORE a);
-void imprimePosOrdem (ARVORE a);
-void imprimePreOrdem (ARVORE a);
-void imprimeEmLargura (ARVORE a);
+void remover(ARVORE a, int key);
+link removerNo(ARVORE a, link h, int key);
+void imprimeEmOrdem(ARVORE a);
+void imprimePosOrdem(ARVORE a);
+void imprimePreOrdem(ARVORE a);
+void imprimeEmLargura(ARVORE a);
 void destroiArvore(ARVORE a);
-
+void destroiArvoreR(ARVORE a, link h);
+link buscaMenorR(ARVORE a, link h, link menor);
+link buscaMenor(ARVORE a, link h);
 #endif
