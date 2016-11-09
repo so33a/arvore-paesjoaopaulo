@@ -194,8 +194,10 @@ link buscaMenorR (ARVORE a, link h) {
   link menor = NULL;
   if (h != a->z)
     buscaMenorR(a, h->left);
+  /*
   else
     return a->raiz;
+    */
   return h; 
 }
 
