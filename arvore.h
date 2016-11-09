@@ -28,6 +28,5 @@ void imprimePreOrdem(ARVORE a);
 void imprimeEmLargura(ARVORE a);
 void destroiArvore(ARVORE a);
 void destroiArvoreR(ARVORE a, link h);
-link buscaMenorR(ARVORE a, link h, link menor);
-link buscaMenor(ARVORE a, link h);
+link buscaMenorR(ARVORE a, link h);
 #endif

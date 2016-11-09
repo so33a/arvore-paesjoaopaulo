@@ -169,7 +169,7 @@ link removerNo(ARVORE a, link h, int key) {
     /* O valor está em um nó não folha */
     if(h->right != a->z && h->left != a->z) {
       /* Guéto o menor valor da subarvore à direita e coloco na raiz */
-      aux = buscaMenor(a, h->right);
+      aux = buscaMenorR(a, h->right);
       h->key = aux->key; 
       /* Remove o nó que foi passado para h */
       h->right = removerNo(a, h->right,aux->key);
@@ -190,10 +190,10 @@ link removerNo(ARVORE a, link h, int key) {
   return h;
 }
 
-link buscaMenor (ARVORE a, link h) {
+link buscaMenorR (ARVORE a, link h) {
   link menor = NULL;
   if (h != a->z)
-    buscaMenorR(a, h->left, menor);
+    buscaMenorR(a, h->left);
   else
     return a->raiz;
   return h; 
